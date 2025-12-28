@@ -1,9 +1,54 @@
 @import "tailwindcss";
 
-body {
+body, html, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
     'Noto Color Emoji';
+}
+
+/* 让 Ant Design Table 铺满容器高度的通用样式 */
+.full-height-table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.full-height-table .ant-spin-nested-loading {
+  flex: 1;
+  min-height: 0;
+}
+
+.full-height-table .ant-spin-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.full-height-table .ant-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.full-height-table .ant-table-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.full-height-table .ant-table-body {
+  flex: 1;
+}
+
+.full-height-table .ant-table-pagination {
+  margin: 16px 0 !important;
+  flex-shrink: 0;
 }

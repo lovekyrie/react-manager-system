@@ -54,21 +54,25 @@ const ServiceInfo: React.FC = () => {
       title: '序号',
       dataIndex: 'id',
       key: 'id',
+      width: 80,
     },
     {
       title: '日期',
       dataIndex: 'date',
       key: 'date',
+      width: 120,
     },
     {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
+      width: 120,
     },
     {
       title: '电话',
       dataIndex: 'phone',
       key: 'phone',
+      width: 150,
     },
     {
       title: '地址',
@@ -78,6 +82,7 @@ const ServiceInfo: React.FC = () => {
     {
       title: '操作',
       key: 'action',
+      width: 150,
       render: (_, record) => (
         <Space size="middle">
           <Button
@@ -102,8 +107,8 @@ const ServiceInfo: React.FC = () => {
   ]
 
   return (
-    <div>
-      <div style={{ marginBottom: 16 }}>
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="shrink-0 mb-4">
         <Space>
           <Button type="primary" style={{ backgroundColor: '#1890ff' }}>
             新增
@@ -117,29 +122,34 @@ const ServiceInfo: React.FC = () => {
           </Button>
         </Space>
       </div>
-      <Table
-        rowKey="id"
-        loading={loading}
-        columns={columns}
-        dataSource={data}
-        rowSelection={{
-          selectedRowKeys,
-          onChange: keys => setSelectedRowKeys(keys),
-        }}
-        pagination={{
-          current,
-          pageSize,
-          total,
-          showSizeChanger: true,
-          showQuickJumper: true,
-          showTotal: total => `Total ${total}`,
-          onChange: (page, size) => {
-            setCurrent(page)
-            setPageSize(size)
-            fetchList(page, size)
-          },
-        }}
-      />
+      <div className="flex-1 min-h-0">
+        <Table
+          className="full-height-table"
+          rowKey="id"
+          loading={loading}
+          columns={columns}
+          dataSource={data}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: keys => setSelectedRowKeys(keys),
+          }}
+          // 关键：scroll.y 设置为 100% 配合 CSS 中的 flex: 1 让表格体铺满
+          scroll={{ y: '100%' }}
+          pagination={{
+            current,
+            pageSize,
+            total,
+            showSizeChanger: true,
+            showQuickJumper: true,
+            showTotal: total => `Total ${total}`,
+            onChange: (page, size) => {
+              setCurrent(page)
+              setPageSize(size)
+              fetchList(page, size)
+            },
+          }}
+        />
+      </div>
     </div>
   )
 }

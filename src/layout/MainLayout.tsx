@@ -11,8 +11,6 @@ import { Breadcrumb, Button, Layout, Menu, message, Space, theme } from 'antd'
 import React, { useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-// ... (getItem function and items array remain the same)
-
 type ItemType = MenuItemType | SubMenuType
 
 const { Header, Content, Sider } = Layout
@@ -66,7 +64,7 @@ const MainLayout: React.FC = () => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}')
 
   return (
-    <Layout className="min-h-screen">
+    <Layout className="h-screen overflow-hidden">
       <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
         <div className="h-8 m-4 bg-white/20 text-white text-center leading-8 font-bold">
           记账管理系统
@@ -79,18 +77,16 @@ const MainLayout: React.FC = () => {
           onClick={handleMenuClick}
         />
       </Sider>
-      <Layout>
-        <Header className="p-0 bg-white flex justify-between items-center px-4">
+      <Layout className="flex flex-col overflow-hidden">
+        <Header className="p-0 flex justify-between items-center px-4 bg-white shrink-0">
           <div />
-          {' '}
-          {/* Left placeholder */}
           <Space>
             <span className="text-gray-600">
               欢迎您，
               {userInfo.username || '管理员'}
             </span>
             <Button
-              type="text"
+              type="link"
               icon={<LogoutOutlined />}
               onClick={handleLogout}
             >
@@ -98,17 +94,18 @@ const MainLayout: React.FC = () => {
             </Button>
           </Space>
         </Header>
-        <Content className="m-4">
-          <Breadcrumb className="m-4">
+        <Content className="flex-1 flex flex-col overflow-hidden p-4 bg-[#f5f5f5]">
+          <Breadcrumb className="mb-4 shrink-0">
             <Breadcrumb.Item>服务管理</Breadcrumb.Item>
             <Breadcrumb.Item>服务信息</Breadcrumb.Item>
           </Breadcrumb>
           <div
+            className="flex-1 flex flex-col overflow-hidden"
             style={{
               padding: 24,
-              minHeight: 360,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
+              minHeight: 0,
             }}
           >
             <Outlet />
